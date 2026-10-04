@@ -1,317 +1,401 @@
-# Student Performance Prediction Using Supervised Machine Learning
+# Student Performance Prediction
 
-A supervised machine learning project for predicting students' final mathematics grade (`G3`) using the UCI Student Performance Dataset.
+### Predicting Final Student Mathematics Grades Using Supervised Machine Learning
+
+A complete end-to-end machine learning project that predicts a student's **final mathematics grade (`G3`) on a 0-20 scale** using academic, demographic, social, and behavioral features from the UCI Student Performance dataset.
+
+The project covers the complete machine learning workflow-from dataset verification and exploratory analysis to feature engineering, model comparison, hyperparameter tuning, final evaluation, error analysis, model persistence, and reproducibility.
+
+---
 
 ## Project Overview
 
-This project implements a complete supervised machine learning workflow for predicting a student's final mathematics performance.
+Student academic performance is influenced by multiple factors such as previous grades, study habits, failures, absences, family background, and social conditions.
 
-- **Target:** `G3` â€” Final mathematics grade
-- **Target Range:** 0â€“20
-- **Problem Type:** Regression
-- **Primary Dataset:** UCI Student Performance Dataset
-- **Primary File:** `data/student-mat.csv`
+This project investigates whether these factors can be used to estimate a student's final mathematics grade.
 
-The project covers data verification, data cleaning, exploratory data analysis, preprocessing, baseline model development, model evaluation, hyperparameter tuning, final model selection, feature importance analysis, and prediction error analysis.
+### Objective
+
+Build and evaluate regression models capable of predicting:
+
+> **Final Mathematics Grade (`G3`) - range: 0 to 20**
+
+The project also compares two prediction scenarios:
+
+- **Full Information:** includes previous-period grades `G1` and `G2`.
+- **Pre-Grade:** excludes `G1` and `G2` to evaluate prediction using information available before those grades are known.
+
+---
+
+## Key Results
+
+The final selected model is a **Random Forest Regressor** trained under the Full Information scenario.
+
+| Metric | Final Model |
+|---|---:|
+| Model | Random Forest Regressor |
+| Test MAE | **1.2005** |
+| Test MSE | **4.0601** |
+| Test RMSE | **2.0150** |
+| Test RÂ² | **0.8020** |
+
+The model achieved an **RÂ² of 0.8020**, meaning it explained approximately 80.2% of the variance in final mathematics grades on the held-out test set.
+
+### Scenario Comparison
+
+| Scenario | Model | MAE | RMSE | RÂ² |
+|---|---|---:|---:|---:|
+| Full Information | Random Forest | **1.2005** | **2.0150** | **0.8020** |
+| Pre-Grade | Random Forest | 2.9938 | 3.7508 | 0.3139 |
+
+The comparison demonstrates the strong predictive value of prior academic performance, particularly `G2`.
 
 ---
 
 ## Dataset
 
-The project uses the UCI Student Performance Dataset.
+The primary dataset is the **Student Performance dataset**, using the mathematics dataset:
 
-### Mathematics Dataset
+```text
+data/student-mat.csv
+```
 
-**File:** `data/student-mat.csv`
+### Dataset Profile
 
-- 395 student records
-- 33 columns
-- 32 predictor features
-- 1 target variable (`G3`)
-- 0 missing values
-- 0 duplicate rows
+- **395 observations**
+- **33 columns**
+- **32 predictor/feature columns**
+- **1 target column (`G3`)**
+- **17 categorical features**
+- **16 numerical features**
+- **0 missing values**
+- **0 duplicate records**
 
-### Portuguese Dataset
+The Portuguese-language dataset is also retained in the repository for reference:
 
-**File:** `data/student-por.csv`
+```text
+data/student-por.csv
+```
 
-The Portuguese-language dataset is retained as a reference/alternative dataset. It was not used for the final mathematics prediction model.
+A cleaned mathematics dataset is additionally available:
 
-### Cleaned Dataset
-
-**File:** `data/student-mat-cleaned.csv`
-
-This is the validated mathematics dataset used during the modeling workflow.
+```text
+data/student-mat-cleaned.csv
+```
 
 ---
 
 ## Target Variable
 
-The target variable is `G3`, representing the student's final mathematics grade.
+The prediction target is:
 
-The target has a range from 0 to 20.
+```text
+G3
+```
 
-| Statistic | G3 |
+`G3` represents the student's final mathematics grade on a **0-20 scale**.
+
+### Target Statistics
+
+| Statistic | Value |
 |---|---:|
 | Mean | 10.415 |
+| Median | 11 |
 | Standard Deviation | 4.581 |
 | Minimum | 0 |
-| Median | 11 |
 | Maximum | 20 |
-
----
-
-## Project Objectives
-
-1. Understand the dataset and target variable.
-2. Validate data quality.
-3. Perform data cleaning and validation.
-4. Perform exploratory data analysis.
-5. Study relationships between student characteristics and final grades.
-6. Build multiple supervised regression models.
-7. Compare model performance using MAE, MSE, RMSE and RÂ².
-8. Compare models with and without previous grades.
-9. Perform hyperparameter tuning.
-10. Select the strongest final model.
-11. Analyze feature importance.
-12. Analyze prediction errors.
-13. Document limitations and future improvements.
 
 ---
 
 ## Machine Learning Workflow
 
 ```text
-Dataset Selection
-       â†“
-Data Verification
-       â†“
+Dataset
+   â”‚
+   â–¼
+Dataset Verification
+   â”‚
+   â–¼
 Data Understanding
-       â†“
+   â”‚
+   â–¼
 Data Cleaning
-       â†“
+   â”‚
+   â–¼
 Exploratory Data Analysis
-       â†“
-Feature Engineering & Preprocessing
-       â†“
+   â”‚
+   â–¼
+Feature Engineering
+   â”‚
+   â–¼
 Train/Test Split
-       â†“
-Baseline Models
-       â†“
+   â”‚
+   â–¼
+Preprocessing Pipeline
+   â”‚
+   â”œâ”€â”€ Numerical Imputation
+   â”œâ”€â”€ Standard Scaling
+   â”‚
+   â””â”€â”€ Categorical Imputation
+       â””â”€â”€ One-Hot Encoding
+   â”‚
+   â–¼
+Baseline Model Comparison
+   â”‚
+   â”œâ”€â”€ Linear Regression
+   â”œâ”€â”€ Ridge Regression
+   â”œâ”€â”€ Decision Tree
+   â””â”€â”€ Random Forest
+   â”‚
+   â–¼
 Model Evaluation
-       â†“
+   â”‚
+   â–¼
 Hyperparameter Tuning
-       â†“
+   â”‚
+   â–¼
 Final Model Selection
-       â†“
-Feature Importance
-       â†“
+   â”‚
+   â–¼
 Error Analysis
-       â†“
-Final Report
+   â”‚
+   â–¼
+Model Persistence & Verification
 ```
-
----
-
-## Data Quality
-
-The primary mathematics dataset contains:
-
-- 395 rows
-- 33 columns
-- 0 missing values
-- 0 duplicate rows
-- No logical range violations identified
-
-The dataset was retained without removing legitimate high-absence observations because extreme absence values were not proven to be invalid.
-
----
-
-## Exploratory Data Analysis
-
-The analysis examined:
-
-- Final grade distribution
-- Previous grades (`G1` and `G2`)
-- Failures
-- Study time
-- Absences
-- Gender
-- School
-- Mother's education
-- Feature correlations
-- Relationships between numerical variables and `G3`
-
-Important observed relationships included:
-
-- `G2` had the strongest correlation with `G3`.
-- `G1` was also strongly correlated with `G3`.
-- Previous failures showed a negative relationship with final grade.
-- Absences had a very weak linear correlation with `G3`.
 
 ---
 
 ## Models Evaluated
 
-The following regression models were evaluated:
+Four regression algorithms were evaluated:
 
-- Linear Regression
-- Ridge Regression
-- Decision Tree Regressor
-- Random Forest Regressor
+### 1. Linear Regression
 
-Two modeling scenarios were compared.
+Used as a simple baseline to establish a reference performance level.
+
+### 2. Ridge Regression
+
+An extension of linear regression using L2 regularization to reduce the impact of multicollinearity and overfitting.
+
+### 3. Decision Tree Regressor
+
+A non-linear tree-based model capable of capturing feature interactions.
+
+### 4. Random Forest Regressor
+
+An ensemble of decision trees that generally provides stronger robustness and predictive performance for mixed tabular data.
+
+---
+
+## Baseline Results
 
 ### Full Information Scenario
 
-This scenario included all predictor variables, including previous grades `G1` and `G2`.
+| Model | MAE | RMSE | RÂ² |
+|---|---:|---:|---:|
+| Linear Regression | 1.6467 | 2.3784 | 0.7241 |
+| Ridge Regression | 1.6391 | 2.3715 | 0.7257 |
+| Decision Tree | 1.3165 | 2.5705 | 0.6778 |
+| **Random Forest** | **1.2005** | **2.0150** | **0.8020** |
 
-### Pre-Grade Scenario
-
-This scenario excluded `G1` and `G2` to evaluate prediction using student information available before the earlier grading stages.
-
----
-
-## Baseline Model Results
-
-### Full Information Scenario
-
-| Model | MAE | MSE | RMSE | RÂ² |
-|---|---:|---:|---:|---:|
-| Linear Regression | 1.6467 | 5.6566 | 2.3784 | 0.7241 |
-| Ridge Regression | 1.6391 | 5.6242 | 2.3715 | 0.7257 |
-| Decision Tree | 1.3165 | 6.6076 | 2.5705 | 0.6778 |
-| **Random Forest** | **1.2005** | **4.0601** | **2.0150** | **0.8020** |
-
-### Pre-Grade Scenario
-
-| Model | MAE | MSE | RMSE | RÂ² |
-|---|---:|---:|---:|---:|
-| Linear Regression | 3.3953 | 17.6037 | 4.1957 | 0.1415 |
-| Ridge Regression | 3.3929 | 17.5846 | 4.1934 | 0.1424 |
-| Decision Tree | 3.6329 | 23.4051 | 4.8379 | -0.1414 |
-| **Random Forest** | **2.9938** | **14.0686** | **3.7508** | **0.3139** |
-
-Random Forest achieved the strongest baseline performance in both scenarios.
+Random Forest produced the strongest baseline performance and was therefore selected for further investigation.
 
 ---
 
-## Final Model
+## Pre-Grade Prediction
 
-The final selected model is:
+To investigate how much predictive power comes from previous grades, a second scenario was created without `G1` and `G2`.
 
-**Random Forest Regressor**
+| Model | MAE | RMSE | RÂ² |
+|---|---:|---:|---:|
+| Linear Regression | 3.3953 | 4.1957 | 0.1415 |
+| Ridge Regression | 3.3929 | 4.1934 | 0.1424 |
+| Decision Tree | 3.6329 | 4.8379 | -0.1414 |
+| **Random Forest** | **2.9938** | **3.7508** | **0.3139** |
 
-Configuration:
+This experiment shows that predicting the final grade becomes substantially harder when previous academic grades are unavailable.
+
+---
+
+## Feature Engineering & Preprocessing
+
+The preprocessing pipeline was designed to avoid data leakage by fitting transformations only on the training data.
+
+### Numerical Features
+
+Applied:
+
+- Median imputation
+- Standard scaling
+
+### Categorical Features
+
+Applied:
+
+- Most-frequent imputation
+- One-hot encoding
+- Unknown-category handling
+
+### Train/Test Split
 
 ```text
-n_estimators = 200
-random_state = 42
-n_jobs = -1
+Training set: 316 samples
+Testing set:   79 samples
+Split ratio:   80/20
+Random state:  42
 ```
-
-The final model was selected based on the baseline comparison because hyperparameter tuning did not improve the test performance.
-
----
-
-## Final Model Performance
-
-The final model achieved:
-
-| Metric | Test Performance |
-|---|---:|
-| MAE | **1.2005** |
-| MSE | **4.0601** |
-| RMSE | **2.0150** |
-| RÂ² | **0.8020** |
-
-An RMSE of approximately 2.02 means that predictions typically differ from actual final grades by around two grade points, with larger errors contributing more strongly to the RMSE.
-
----
-
-## Hyperparameter Tuning
-
-Random Forest hyperparameters were optimized using 5-fold cross-validation with RMSE as the optimization metric.
-
-### Best Full Information Parameters
-
-```text
-n_estimators = 400
-max_depth = None
-max_features = 1.0
-min_samples_leaf = 2
-min_samples_split = 2
-```
-
-Tuned test performance:
-
-- MAE: 1.2123
-- MSE: 4.0787
-- RMSE: 2.0196
-- RÂ²: 0.8011
-
-The tuned model did not improve the baseline Random Forest, so the baseline model was retained as the final model.
 
 ---
 
 ## Feature Importance
 
-The strongest features in the final model included:
+The final Random Forest model identified the following features among the most influential:
 
-| Feature | Importance |
-|---|---:|
-| `G2` | 0.7872 |
-| `absences` | 0.1143 |
-| `reason_home` | 0.0190 |
-| `age` | 0.0091 |
-| `G1` | 0.0055 |
+| Rank | Feature | Importance |
+|---:|---|---:|
+| 1 | `G2` | **0.7872** |
+| 2 | `absences` | **0.1143** |
+| 3 | `reason_home` | 0.0190 |
+| 4 | `age` | 0.0091 |
+| 5 | `G1` | 0.0055 |
 
-The very high importance of `G2` indicates that previous performance is highly predictive of the final grade.
+The dominance of `G2` indicates that a student's previous academic performance is highly informative for predicting the final grade.
 
-**Note:** Feature importance describes predictive contribution and should not be interpreted as proof of causation.
+Feature importance indicates predictive contribution within the trained model; it **does not establish causation**.
 
 ---
 
 ## Error Analysis
 
-The final model was particularly accurate for students whose actual grades were in the middle and upper ranges.
+The final model achieved strong overall performance, but its errors were not evenly distributed across all grade ranges.
 
-The largest prediction errors were concentrated among several low-grade observations.
+### Mean Absolute Error by Grade Range
 
-For example, some students with an actual `G3` of 0 were predicted substantially higher than their actual grade.
+| Actual Grade Range | Samples | MAE |
+|---|---:|---:|
+| 0-5 | 9 | 3.0278 |
+| 6-10 | 29 | 1.3652 |
+| 11-15 | 31 | 0.6668 |
+| 16-20 | 10 | 0.7330 |
 
-This indicates that the model has difficulty identifying some extreme low-performance cases.
+The model performed best for students in the middle and upper grade ranges and struggled more with very low grades.
+
+This is an important limitation because students with unusually low outcomes can be particularly difficult to predict from the available features.
 
 ---
 
-## Visualizations
+## Hyperparameter Tuning
 
-The project includes 12 final visualizations:
+Random Forest hyperparameters were optimized using:
 
-1. `G3_Distribution.png`
-2. `Grade_Comparison.png`
-3. `G3_vs_G1.png`
-4. `G3_vs_G2.png`
-5. `G3_vs_Failures.png`
-6. `G3_vs_Studytime.png`
-7. `G3_vs_Absences.png`
-8. `Correlation_Heatmap.png`
-9. `Feature_Importance.png`
-10. `Actual_vs_Predicted.png`
-11. `Residual_Analysis.png`
-12. `Error_by_Grade_Range.png`
+- `GridSearchCV`
+- 5-fold cross-validation
+- RMSE-based scoring
+- Shuffled K-Fold validation
+- `random_state=42`
+
+A total of:
+
+```text
+216 parameter combinations Ã— 5 folds
+= 1080 fits per scenario
+```
+
+were evaluated.
+
+### Tuning Result
+
+Interestingly, hyperparameter tuning did **not** improve the baseline Random Forest on the held-out test set.
+
+Therefore, the simpler baseline configuration was retained as the final model rather than selecting a more complex configuration solely because it had been tuned.
+
+This decision prioritizes **measured validation performance and reproducibility** over unnecessary model complexity.
+
+---
+
+## Final Model
+
+The final model is:
+
+```text
+RandomForestRegressor(
+    n_estimators=200,
+    random_state=42,
+    n_jobs=-1
+)
+```
+
+Saved model:
+
+```text
+models/student_performance_final_model.joblib
+```
+
+Metadata:
+
+```text
+models/student_performance_model_metadata.json
+```
+
+The saved model was reloaded and tested to verify reproducibility.
+
+### Reload Verification
+
+```text
+Predictions identical after reload: True
+```
+
+---
+
+## Visual Analysis
+
+The project contains 12 final visualizations covering target distribution, relationships, correlations, feature importance, predictions, residuals, and error behavior.
+
+### Target & Grade Analysis
+
+| Visualization | Description |
+|---|---|
+| `G3_Distribution.png` | Distribution of final mathematics grades |
+| `Grade_Comparison.png` | Comparison of G1, G2, and G3 |
+| `G3_vs_G1.png` | Relationship between first-period and final grades |
+| `G3_vs_G2.png` | Relationship between second-period and final grades |
+
+### Behavioral & Academic Factors
+
+| Visualization | Description |
+|---|---|
+| `G3_vs_Failures.png` | Final grade by number of previous failures |
+| `G3_vs_Studytime.png` | Final grade by weekly study time |
+| `G3_vs_Absences.png` | Relationship between absences and final grade |
+| `Correlation_Heatmap.png` | Feature correlation overview |
+
+### Model Analysis
+
+| Visualization | Description |
+|---|---|
+| `Feature_Importance.png` | Final Random Forest feature importance |
+| `Actual_vs_Predicted.png` | Actual versus predicted grades |
+| `Residual_Analysis.png` | Distribution and behavior of prediction errors |
+| `Error_by_Grade_Range.png` | Model error across grade ranges |
 
 ---
 
 ## Project Structure
 
 ```text
-Week_6_Student_Performance/
+Student-Performance-Prediction/
 â”‚
 â”œâ”€â”€ data/
 â”‚   â”œâ”€â”€ student-mat.csv
 â”‚   â”œâ”€â”€ student-por.csv
 â”‚   â””â”€â”€ student-mat-cleaned.csv
+â”‚
+â”œâ”€â”€ models/
+â”‚   â”œâ”€â”€ student_performance_final_model.joblib
+â”‚   â””â”€â”€ student_performance_model_metadata.json
+â”‚
+â”œâ”€â”€ notebook/
+â”‚   â””â”€â”€ Week_6_Student_Performance.ipynb
 â”‚
 â”œâ”€â”€ src/
 â”‚   â”œâ”€â”€ dataset_verification.py
@@ -326,99 +410,100 @@ Week_6_Student_Performance/
 â”‚   â””â”€â”€ final_analysis.py
 â”‚
 â”œâ”€â”€ visualizations/
-â”‚   â””â”€â”€ 12 final visualization files
-â”‚
-â”œâ”€â”€ models/
-â”‚   â”œâ”€â”€ student_performance_final_model.joblib
-â”‚   â””â”€â”€ student_performance_model_metadata.json
-â”‚
+â”‚   â”œâ”€â”€ Actual_vs_Predicted.png
+â”‚   â”œâ”€â”€ Correlation_Heatmap.png
+â”‚   â”œâ”€â”€ Error_by_Grade_Range.png
+â”‚   â”œâ”€â”€ Feature_Importance.png
+â”‚   â”œâ”€â”€ G3_Distribution.png
+â”‚   â”œâ”€â”€ G3_vs_Absences.png
+â”‚   â”œâ”€â”€ G3_vs_Failures.png
+â”‚   â”œâ”€â”€ G3_vs_G1.png
+â”‚   â”œâ”€â”€ G3_vs_G2.png
+â”‚   â”œâ”€â”€ G3_vs_Studytime.png
+â”‚   â”œâ”€â”€ Grade_Comparison.png
+â”‚   â””â”€â”€ Residual_Analysis.png
 â”‚
 â”œâ”€â”€ .gitignore
-â”œâ”€â”€ requirements.txt
 â”œâ”€â”€ README.md
-├── notebook/
-│   └── Week_6_Student_Performance.ipynb
+â”œâ”€â”€ requirements.txt
 â””â”€â”€ Week_6_Student_Performance_Final_Report.pdf
 ```
 
 ---
 
-## Technologies Used
+## Tech Stack
+
+### Programming
 
 - Python 3.14
+
+### Data Processing
+
 - Pandas
 - NumPy
+
+### Visualization
+
 - Matplotlib
 - Seaborn
+
+### Machine Learning
+
 - Scikit-learn
+
+### Model Persistence
+
 - Joblib
+
+### Documentation
+
 - Jupyter Notebook
-- Python-docx
-- OpenPyXL
+- PDF Report
+
+### Development Environment
+
+- Visual Studio Code
+- Python Virtual Environment (`.venv`)
+- Git & GitHub
 
 ---
 
-## Preprocessing
+## Installation
 
-Numerical features were processed using:
+Clone the repository and move into the project directory:
 
-- Median imputation
-- StandardScaler
-
-Categorical features were processed using:
-
-- Most-frequent imputation
-- One-hot encoding
-- Unknown-category handling
-
-The preprocessing pipeline was fitted using the training data only to avoid data leakage.
-
----
-
-## Train/Test Split
-
-The dataset was divided using:
-
-```text
-Training data: 80%
-Test data: 20%
-random_state: 42
+```bash
+git clone https://github.com/UPENDER2493/Student-Performance-Prediction.git
+cd Student-Performance-Prediction
 ```
 
-This resulted in:
+Create a virtual environment:
 
-- Training samples: 316
-- Test samples: 79
-
----
-
-## Reproducibility
-
-The project uses fixed random seeds where applicable, particularly:
-
-```text
-random_state = 42
+```bash
+python -m venv .venv
 ```
 
-The final trained model is stored in:
+Activate it on Windows PowerShell:
 
-```text
-models/student_performance_final_model.joblib
+```powershell
+.\.venv\Scripts\Activate.ps1
 ```
 
-Model metadata is stored in:
+Install the required dependencies:
 
-```text
-models/student_performance_model_metadata.json
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
 ## Running the Project
 
-After activating the virtual environment and installing the requirements, the individual workflow scripts can be executed from the project root.
+The project is organized as a sequence of reproducible Python scripts.
 
-```powershell
+Run the workflow from the project root:
+
+```bash
 python src/dataset_verification.py
 python src/data_understanding.py
 python src/data_cleaning.py
@@ -431,61 +516,129 @@ python src/final_model.py
 python src/final_analysis.py
 ```
 
-The scripts reproduce the major stages of the machine learning workflow.
+The executed notebook is also available at:
 
-> **Note:** Some workflow scripts generate intermediate analysis files. The final submission retains the curated final visualizations, trained model artifacts, notebook, and final PDF report.
+```text
+notebook/Week_6_Student_Performance.ipynb
+```
+
+For the most reliable relative-path behavior, run notebook-related work from the project root.
+
+---
+
+## Reproducibility
+
+The project uses fixed random seeds where applicable:
+
+```text
+random_state = 42
+```
+
+The workflow includes:
+
+- Explicit train/test split
+- Training-only preprocessing
+- Cross-validation
+- Reproducible model configuration
+- Saved model artifact
+- Saved metadata
+- Executed notebook
+- Final visualizations
+- Final evaluation results
+
+This makes the project easier to reproduce and audit.
 
 ---
 
 ## Limitations
 
-1. The dataset contains only 395 mathematics students.
-2. The project focuses on predicting mathematics performance.
-3. The model is based on historical student information.
-4. Previous grades (`G1` and `G2`) are highly predictive, which limits the usefulness of the full-information model for early intervention.
-5. Some extreme low-grade cases are difficult for the model to predict accurately.
-6. Feature importance describes predictive contribution, not causal relationships.
-7. External factors not represented in the dataset may affect student performance.
+Although the final model achieved strong performance, several limitations remain:
+
+1. The dataset contains only 395 mathematics-student records.
+2. The dataset represents a specific educational context and may not generalize to all schools or populations.
+3. `G2` is highly predictive of `G3`, so the Full Information scenario benefits strongly from prior academic performance.
+4. The Pre-Grade scenario demonstrates substantially weaker predictive performance.
+5. Feature importance should not be interpreted as causal influence.
+6. Prediction errors are larger for some low-performing students.
+7. The model should be treated as a predictive analysis tool rather than a definitive assessment of student ability.
 
 ---
 
 ## Future Improvements
 
-Possible future improvements include:
+Potential extensions include:
 
-- Testing additional regression algorithms such as Gradient Boosting and XGBoost.
-- Applying systematic feature selection.
-- Testing ensemble stacking and boosting methods.
-- Evaluating the model using repeated cross-validation.
-- Developing an early-warning model without previous grades.
-- Investigating additional student-level features.
-- Improving prediction of extreme low-grade cases.
-- Deploying the model through a web-based educational application.
-
----
-
-## Final Conclusion
-
-The project demonstrates a complete supervised machine learning workflow for student performance prediction.
-
-The Random Forest Regressor achieved the best baseline performance with:
-
-**MAE = 1.2005**
-
-**RMSE = 2.0150**
-
-**RÂ² = 0.8020**
-
-The analysis shows that previous academic performance, particularly `G2`, is the strongest predictive signal for final mathematics grade. However, the model performs less reliably on extreme low-grade cases, highlighting the importance of detailed error analysis alongside aggregate performance metrics.
+- External validation using additional student datasets
+- Comparison with Gradient Boosting, XGBoost, or other advanced ensemble models
+- More systematic feature selection
+- Explainability using SHAP or similar techniques
+- Prediction intervals and uncertainty estimation
+- Separate models for different academic groups
+- Additional temporal or longitudinal student data
+- Deployment through an API or web application
+- Monitoring model performance after deployment
+- Fairness and subgroup performance analysis
 
 ---
 
-## Academic Context
+## Key Takeaways
 
-This project was developed as part of a supervised machine learning coursework/capstone workflow focused on understanding the complete machine learning lifecycle from dataset selection through final model evaluation.
+### 01 - Previous performance matters
+
+`G2` was by far the strongest predictive feature in the final Random Forest model.
+
+### 02 - Random Forest performed best
+
+Among the evaluated baseline models, Random Forest achieved the strongest overall test performance.
+
+### 03 - Prediction without previous grades is harder
+
+Removing `G1` and `G2` reduced the Random Forest RÂ² from:
+
+```text
+0.8020 â†’ 0.3139
+```
+
+### 04 - Strong overall performance does not mean perfect predictions
+
+The model performed substantially better for middle-range grades than for some very low-grade cases.
+
+### 05 - Evaluation matters more than tuning for its own sake
+
+Hyperparameter tuning did not improve the final held-out performance, so the baseline Random Forest was retained.
+
+---
+
+## Academic Project
+
+**Project:** Student Performance Prediction Using Supervised Machine Learning
+
+**Target:** Final Mathematics Grade (`G3`)
+
+**Problem Type:** Regression
+
+**Final Model:** Random Forest Regressor
+
+**Best Test RÂ²:** 0.8020
+
+**Best Test RMSE:** 2.0150
+
+**Best Test MAE:** 1.2005
+
+---
+
+## Author
+
+**Upender Rajput**
+
+B.Tech Student | AI/ML & Software Development
+
+GitHub: **UPENDER2493**
 
 ---
 
 ## License
 
-This project is intended for educational and academic purposes.
+This project is intended primarily for **educational, academic, and portfolio purposes**.
+
+Please refer to the original dataset source and its applicable terms before using the dataset for other purposes.
