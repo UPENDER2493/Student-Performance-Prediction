@@ -516,17 +516,6 @@ Hyperparameter tuning did not improve the final held-out performance, so the bas
 **Best Test MAE:** 1.2005
 
 ---
-
-## Author
-
-**Upender Rajput**
-
-B.Tech Student | AI/ML & Software Development
-
-GitHub: **UPENDER2493**
-
----
-
 ## License
 
 This project is intended primarily for **educational, academic, and portfolio purposes**.
