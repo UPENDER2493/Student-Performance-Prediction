@@ -1,0 +1,82 @@
+{
+    "project": "Week 6 - Student Performance Prediction",
+    "dataset": "UCI Student Performance Dataset",
+    "dataset_file": "data\\student-mat-cleaned.csv",
+    "target": "G3",
+    "problem_type": "Regression",
+    "final_scenario": "Full Information",
+    "model": "RandomForestRegressor",
+    "reason_for_selection": "Baseline Random Forest achieved the strongest test performance. Hyperparameter tuning did not improve the holdout test performance.",
+    "parameters": {
+        "n_estimators": "200",
+        "random_state": "42",
+        "n_jobs": "-1"
+    },
+    "features": {
+        "total": 32,
+        "numerical": [
+            "age",
+            "Medu",
+            "Fedu",
+            "traveltime",
+            "studytime",
+            "failures",
+            "famrel",
+            "freetime",
+            "goout",
+            "Dalc",
+            "Walc",
+            "health",
+            "absences",
+            "G1",
+            "G2"
+        ],
+        "categorical": [
+            "school",
+            "sex",
+            "address",
+            "famsize",
+            "Pstatus",
+            "Mjob",
+            "Fjob",
+            "reason",
+            "guardian",
+            "schoolsup",
+            "famsup",
+            "paid",
+            "activities",
+            "nursery",
+            "higher",
+            "internet",
+            "romantic"
+        ],
+        "includes_G1": true,
+        "includes_G2": true,
+        "excludes_G3": true
+    },
+    "data_split": {
+        "train_samples": 316,
+        "test_samples": 79,
+        "test_size": 0.2,
+        "random_state": 42
+    },
+    "metrics": {
+        "MAE": 1.2005063291139242,
+        "MSE": 4.060087341772151,
+        "RMSE": 2.0149658413412745,
+        "R2": 0.8019957092176414
+    },
+    "train_test_performance": {
+        "Train_RMSE": 0.5687062683145432,
+        "Train_R2": 0.9846020345404155,
+        "Test_RMSE": 2.0149658413412745,
+        "Test_R2": 0.8019957092176414
+    },
+    "tuning_result": {
+        "full_information_baseline_rmse": 2.015,
+        "full_information_tuned_rmse": 2.0196,
+        "tuning_improvement_percent": -0.2272
+    },
+    "model_file": "models\\student_performance_final_model.joblib",
+    "prediction_report": "reports\\final_model_test_predictions.csv"
+}

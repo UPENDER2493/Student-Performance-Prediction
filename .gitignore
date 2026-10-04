@@ -1,0 +1,54 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+~*
+
+# Python cache
+.mypy_cache/
+.ruff_cache/
+
+# Generated temporary datasets/reports
+reports/temp/
+reports/intermediate/
